@@ -96,7 +96,7 @@ export const LandingPage = ({ onStartQuiz }: LandingPageProps) => {
               Your Complete Vitality Assessment
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Our scientifically-backed assessment evaluates the key pillars of longevity to give you a comprehensive vitality score and personalized recommendations.
+              Discover your biological vitality with our comprehensive assessment covering sleep, diet, supplements, exercise, and stress management. Get personalized recommendations to optimize your health and extend your lifespan.
             </p>
           </div>
           
