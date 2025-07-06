@@ -80,11 +80,11 @@ export const LandingPage = ({ onStartQuiz }: LandingPageProps) => {
                 onClick={onStartQuiz}
                 variant="hero" 
                 size="lg"
-                className="px-12 py-6 text-xl animate-glow"
+                className="px-12 py-6 text-xl animate-glow text-black"
               >
                 Take Your Free Assessment
               </Button>
-              <p className="text-primary-foreground/80 text-sm">
+              <p className="text-black text-sm">
                 ✨ Takes only 3-5 minutes • Get instant results
               </p>
             </div>
