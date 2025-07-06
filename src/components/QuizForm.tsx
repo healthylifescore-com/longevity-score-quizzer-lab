@@ -4,7 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Mail, CheckCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 export interface QuizData {
   firstName: string;
@@ -139,6 +141,8 @@ export const QuizForm = ({ onComplete, onBack }: QuizFormProps) => {
     answers: {}
   });
   const [showEmailForm, setShowEmailForm] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
 
   const totalSteps = questions.length + 1; // +1 for name collection
   const progress = ((currentStep + 1) / totalSteps) * 100;
@@ -174,9 +178,39 @@ export const QuizForm = ({ onComplete, onBack }: QuizFormProps) => {
     }
   };
 
-  const handleEmailSubmit = () => {
+  const handleEmailSubmit = async () => {
     if (!formData.email.trim()) return;
-    onComplete(formData);
+    
+    setIsSubmitting(true);
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('send-assessment-results', {
+        body: formData
+      });
+
+      if (error) throw error;
+
+      setEmailSent(true);
+      toast({
+        title: "Assessment Complete! 🎉",
+        description: "Your personalized results have been sent to your email.",
+      });
+
+      // Wait a moment, then redirect to results
+      setTimeout(() => {
+        onComplete(formData);
+      }, 2000);
+
+    } catch (error: any) {
+      console.error('Error sending assessment results:', error);
+      toast({
+        title: "Something went wrong",
+        description: "We couldn't send your results right now. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isCurrentAnswered = () => {
@@ -190,35 +224,59 @@ export const QuizForm = ({ onComplete, onBack }: QuizFormProps) => {
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl text-vitality mb-2">Almost Done! 🎉</CardTitle>
-            <p className="text-muted-foreground">
-              Enter your email to receive your personalized Longevity Score and recommendations.
-            </p>
+            {emailSent ? (
+              <>
+                <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
+                <CardTitle className="text-2xl text-green-600 mb-2">Email Sent! 📧</CardTitle>
+                <p className="text-muted-foreground">
+                  Your personalized results are on their way to your inbox. You'll also see them on the next page!
+                </p>
+              </>
+            ) : (
+              <>
+                <CardTitle className="text-2xl text-vitality mb-2">Almost Done! 🎉</CardTitle>
+                <p className="text-muted-foreground">
+                  Enter your email to receive your personalized Longevity Score and recommendations.
+                </p>
+              </>
+            )}
           </CardHeader>
           <CardContent className="space-y-4">
-            <div>
-              <Label htmlFor="email">Email Address *</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="your@email.com"
-                value={formData.email}
-                onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                className="mt-1"
-                required
-              />
-            </div>
-            <Button 
-              onClick={handleEmailSubmit} 
-              variant="vitality" 
-              className="w-full"
-              disabled={!formData.email.trim()}
-            >
-              Get My Longevity Score
-            </Button>
-            <p className="text-xs text-muted-foreground text-center">
-              We respect your privacy. Your email will only be used to send you your results.
-            </p>
+            {!emailSent && (
+              <>
+                <div>
+                  <Label htmlFor="email">Email Address *</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                    className="mt-1"
+                    required
+                    disabled={isSubmitting}
+                  />
+                </div>
+                <Button 
+                  onClick={handleEmailSubmit} 
+                  variant="vitality" 
+                  className="w-full"
+                  disabled={!formData.email.trim() || isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Mail className="w-4 h-4 mr-2 animate-spin" />
+                      Sending Results...
+                    </>
+                  ) : (
+                    "Get My Longevity Score"
+                  )}
+                </Button>
+                <p className="text-xs text-muted-foreground text-center">
+                  We respect your privacy. Your email will only be used to send you your results.
+                </p>
+              </>
+            )}
           </CardContent>
         </Card>
       </div>
