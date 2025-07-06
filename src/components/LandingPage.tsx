@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Heart, Brain, Zap, Shield } from "lucide-react";
-import heroImage from "@/assets/hero-longevity-food.jpg";
+import heroImage from "@/assets/hero-longevity-clear.jpg";
 
 interface LandingPageProps {
   onStartQuiz: () => void;
@@ -51,16 +51,20 @@ export const LandingPage = ({ onStartQuiz }: LandingPageProps) => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-hero">
-        <div className="absolute inset-0 opacity-20">
+      {/* Hero Image Section */}
+      <section className="relative overflow-hidden">
+        <div className="w-full h-[60vh] md:h-[70vh]">
           <img 
             src={heroImage} 
             alt="Longevity and wellness" 
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="relative container mx-auto px-4 py-20 text-center">
+      </section>
+
+      {/* Hero Text Section */}
+      <section className="py-20 bg-gradient-hero">
+        <div className="container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto animate-fade-in">
             <h1 className="text-5xl md:text-6xl font-bold text-primary-foreground mb-6">
               What's Your{" "}
