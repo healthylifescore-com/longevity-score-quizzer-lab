@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Heart, Brain, Zap, Shield } from "lucide-react";
-import heroImage from "@/assets/hero-longevity-new.jpg";
+import heroImage from "@/assets/hero-longevity-meditation.jpg";
 
 interface LandingPageProps {
   onStartQuiz: () => void;
