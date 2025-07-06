@@ -68,7 +68,7 @@ export const LandingPage = ({ onStartQuiz }: LandingPageProps) => {
           <div className="max-w-4xl mx-auto animate-fade-in">
             <h1 className="text-5xl md:text-6xl font-bold text-primary-foreground mb-6">
               What's Your{" "}
-              <span className="bg-gradient-to-r from-primary-glow to-wellness bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-energy via-vitality to-wellness bg-clip-text text-transparent animate-pulse">
                 Longevity Score?
               </span>
             </h1>
