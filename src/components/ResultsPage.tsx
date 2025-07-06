@@ -106,7 +106,7 @@ export const ResultsPage = ({ quizData, onRestart }: ResultsPageProps) => {
           category: "supplement", 
           title: "Quietum Plus - Ear Health Support",
           description: "Ear ringing and whooshing happen when neural pathways get damaged. The solution is to feed, regenerate and rebuild these pathways so they work in perfect harmony with your brain. Quietum Plus combines powerful plants with modern medicine and technology, backed by hundreds of clinical studies.",
-          link: "https://hop.clickbank.net/?affiliate=fitatn&vendor=quietum&tid=track",
+          link: "https://f51a2arnlkwqcualzhmmyc0f8r.hop.clickbank.net",
           linkText: "Discover Quietum Plus"
         });
       }
