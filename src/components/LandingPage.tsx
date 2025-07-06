@@ -182,7 +182,7 @@ export const LandingPage = ({ onStartQuiz }: LandingPageProps) => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-12 bg-muted/30">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-foreground mb-12">
             Success Stories
