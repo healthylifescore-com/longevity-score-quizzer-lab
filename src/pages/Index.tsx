@@ -1,14 +1,55 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { LandingPage } from "@/components/LandingPage";
+import { QuizForm, QuizData } from "@/components/QuizForm";
+import { ResultsPage } from "@/components/ResultsPage";
+
+type AppState = "landing" | "quiz" | "results";
 
 const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
-  );
+  const [currentState, setCurrentState] = useState<AppState>("landing");
+  const [quizData, setQuizData] = useState<QuizData | null>(null);
+
+  const handleStartQuiz = () => {
+    setCurrentState("quiz");
+  };
+
+  const handleQuizComplete = (data: QuizData) => {
+    setQuizData(data);
+    setCurrentState("results");
+  };
+
+  const handleBackToLanding = () => {
+    setCurrentState("landing");
+  };
+
+  const handleRestart = () => {
+    setQuizData(null);
+    setCurrentState("landing");
+  };
+
+  if (currentState === "landing") {
+    return <LandingPage onStartQuiz={handleStartQuiz} />;
+  }
+
+  if (currentState === "quiz") {
+    return (
+      <QuizForm 
+        onComplete={handleQuizComplete} 
+        onBack={handleBackToLanding}
+      />
+    );
+  }
+
+  if (currentState === "results" && quizData) {
+    return (
+      <ResultsPage 
+        quizData={quizData} 
+        onRestart={handleRestart}
+      />
+    );
+  }
+
+  return <LandingPage onStartQuiz={handleStartQuiz} />;
 };
 
 export default Index;

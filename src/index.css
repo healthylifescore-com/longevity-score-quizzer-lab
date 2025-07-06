@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Longevity Lab Design System - All colors MUST be HSL */
 
 @layer base {
   :root {
@@ -17,8 +15,9 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 142 76% 36%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 142 76% 46%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -26,15 +25,36 @@ All colors MUST be HSL.
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 172 88% 45%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 142 76% 36%;
+
+    /* Longevity-specific colors */
+    --vitality: 142 76% 36%;
+    --vitality-light: 142 76% 46%;
+    --wellness: 172 88% 45%;
+    --energy: 45 93% 58%;
+    --calm: 217 91% 60%;
+
+    /* Gradients */
+    --gradient-vitality: linear-gradient(135deg, hsl(var(--vitality)), hsl(var(--vitality-light)));
+    --gradient-wellness: linear-gradient(135deg, hsl(var(--wellness)), hsl(var(--energy)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--vitality)), hsl(var(--wellness)));
+
+    /* Shadows */
+    --shadow-vitality: 0 10px 30px -10px hsl(var(--vitality) / 0.3);
+    --shadow-wellness: 0 10px 30px -10px hsl(var(--wellness) / 0.3);
+    --shadow-elegant: 0 20px 60px -20px hsl(var(--vitality) / 0.4);
+
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --radius: 0.5rem;
 
